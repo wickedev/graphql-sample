@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://127.0.0.1:5432/change_me
+    username: change_me
+    password: change_me
+  jpa:
+    open-in-view: true
+    hibernate:
+      # ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      javax:
+        persistence:
+          schema-generation:
+            create-source: metadata
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      hibernate:
+        format_sql: true
+        # batch_fetch_style: dynamic
+        default_batch_fetch_size: 100
+logging:
+  level:
+    # org.hibernate.SQL: debug
+    org.hibernate.type: trace

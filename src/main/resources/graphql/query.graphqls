@@ -1,0 +1,9 @@
+type Query {
+    health: Boolean!
+
+    users: [User!]
+    posts: [Post!]
+
+    user(id: ID): User
+    post(id: ID): User
+}
