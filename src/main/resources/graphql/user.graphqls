@@ -1,6 +1,27 @@
-type User {
+type User implements Node {
     id: ID!
     name: String!
     phoneNumber: String!
     posts: [Post!]
+}
+
+enum UserProperty {
+    ID,
+    NAME,
+    PHONE_NUMBER
+}
+
+input UserSorting {
+    property: UserProperty!
+    direction: Direction!
+}
+
+type UserEdge {
+    node: User!
+    cursor: String!
+}
+
+type UserConnection {
+    edges: [PostEdge!]
+    pageInfo: PageInfo!
 }

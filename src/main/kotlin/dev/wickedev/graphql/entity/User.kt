@@ -1,7 +1,9 @@
 package dev.wickedev.graphql.entity
 
+import com.querydsl.jpa.impl.JPAQuery
 import jakarta.persistence.*
 import org.hibernate.Hibernate
+import org.springframework.data.jpa.repository.support.Querydsl
 
 @Entity
 @Table(name = "users")

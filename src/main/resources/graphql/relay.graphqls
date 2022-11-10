@@ -1,0 +1,18 @@
+interface Node {
+    id: ID!
+}
+
+interface Error {
+    message: String!
+}
+
+type PageInfo {
+    startCursor: String!
+    endCursor: String!
+    hasPreviousPage: Boolean!
+    hasNextPage: Boolean!
+}
+
+enum Direction {
+    ASC, DESC
+}

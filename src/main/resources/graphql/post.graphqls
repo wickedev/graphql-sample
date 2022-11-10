@@ -1,6 +1,28 @@
-type Post {
+type Post implements Node {
     id: ID!
     title: String!
     content: String!
     author: User
+}
+
+enum PostProperty {
+    ID,
+    TITLE,
+    CONTENT
+    AUTHOR_ID
+}
+
+input PostSorting {
+    property: PostProperty!
+    direction: Direction!
+}
+
+type PostEdge {
+    node: Post!
+    cursor: String!
+}
+
+type PostConnection {
+    edges: [PostEdge!]
+    pageInfo: PageInfo!
 }

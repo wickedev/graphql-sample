@@ -1,9 +1,13 @@
 type Query {
     health: Boolean!
+    node(id: ID!): Node
 
     users: [User!]
     posts: [Post!]
 
-    user(id: ID): User
-    post(id: ID): User
+    user(id: ID!): User
+    post(id: ID!): User
+
+    userPages(after: String, first: Int = 10, orderBy: [UserSorting!]): UserConnection
+    postPages(after: String, first: Int = 10, orderBy: [PostSorting!]): PostConnection
 }
