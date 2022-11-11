@@ -11,6 +11,6 @@ class UserController {
 
     @SchemaMapping
     fun posts(self: User): List<Post> {
-        return self.posts
+        return emptyList()
     }
 }

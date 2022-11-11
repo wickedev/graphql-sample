@@ -1,4 +1,4 @@
-type Post implements Node {
+type Post {
     id: ID!
     title: String!
     content: String!

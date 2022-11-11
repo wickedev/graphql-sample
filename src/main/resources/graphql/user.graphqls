@@ -1,4 +1,4 @@
-type User implements Node {
+type User {
     id: ID!
     name: String!
     phoneNumber: String!
@@ -22,6 +22,6 @@ type UserEdge {
 }
 
 type UserConnection {
-    edges: [PostEdge!]
+    edges: [UserEdge!]
     pageInfo: PageInfo!
 }

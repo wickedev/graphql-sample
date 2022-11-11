@@ -10,14 +10,13 @@ import org.springframework.data.jpa.repository.support.Querydsl
 data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
-    val name: String,
+    override val id: Long = 0,
+    val name: String = "",
     @Column(name = "phone_number")
-    val phoneNumber: String,
-) {
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    lateinit var posts: List<Post>
-        private set
+    val phoneNumber: String = "",
+) : Node {
+//    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+//    lateinit var posts: List<Post>
 
     override fun hashCode(): Int {
         var result = id.hashCode()
