@@ -1,12 +1,11 @@
 package dev.wickedev.graphql.config
 
 import graphql.relay.Relay.ResolvedGlobalId
-import org.apache.commons.codec.binary.Base16
 import org.apache.commons.codec.binary.Base32
 import java.nio.charset.StandardCharsets
 
 class RelayBase32 {
-    private val base32 = Base16()
+    private val base32 = Base32()
 
     fun toGlobalId(type: String, id: String): String {
         val bs = "$type:$id".toByteArray(StandardCharsets.UTF_8)
