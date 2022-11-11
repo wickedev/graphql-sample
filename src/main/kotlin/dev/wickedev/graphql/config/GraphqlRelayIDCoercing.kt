@@ -5,7 +5,7 @@ import graphql.scalar.GraphqlIDCoercing
 import graphql.schema.Coercing
 
 class GraphqlRelayIDCoercing(
-    private val relay: Relay,
+    private val relay: RelayBase32,
     private val idCoercing: GraphqlIDCoercing
 ) : Coercing<Any, Any> by idCoercing {
     override fun serialize(input: Any): Any {

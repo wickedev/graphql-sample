@@ -10,6 +10,7 @@ import graphql.schema.DataFetchingEnvironmentImpl.newDataFetchingEnvironment
 import graphql.schema.GraphQLNamedSchemaElement
 import graphql.schema.GraphQLScalarType
 import graphql.schema.idl.RuntimeWiring
+import org.apache.commons.codec.binary.Base32
 import org.springframework.beans.factory.ObjectProvider
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.querydsl.QuerydslPredicateExecutor
@@ -18,18 +19,25 @@ import org.springframework.graphql.execution.RuntimeWiringConfigurer
 
 
 @Configuration
-class GraphQLConfig(
-    private val repositories: ObjectProvider<QuerydslPredicateExecutor<*>>
+class GraphQLConfig<T : Node>(
+    private val repositories: ObjectProvider<QuerydslPredicateExecutor<T>>
 ) : RuntimeWiringConfigurer {
 
-    private val relay = Relay()
+    private val relayBase32 = RelayBase32()
+    val base32 = Base32()
 
-    private fun DataFetchingEnvironment.toGlobalId(): String {
-        val id = getSource<Node>().id.toString()
+    private fun DataFetchingEnvironment.toGlobalId(): Any? {
+        val source = getSource<Any>()
+        if (source !is Node) {
+            return source
+        }
+
+        val id = source.id.toString()
+
         val parentType = this.parentType
         if (parentType is GraphQLNamedSchemaElement) {
             val type = parentType.name.lowercase()
-            return relay.toGlobalId(type, id)
+            return relayBase32.toGlobalId(type, id)
         }
         return id
     }
@@ -55,7 +63,7 @@ class GraphQLConfig(
         builder
             .scalar(
                 GraphQLScalarType.newScalar().name("ID").description("Built-in ID")
-                    .coercing(GraphqlRelayIDCoercing(relay, GraphqlIDCoercing())).build()
+                    .coercing(GraphqlRelayIDCoercing(relayBase32, GraphqlIDCoercing())).build()
             )
             .type("Query") { t ->
                 t.dataFetcher("node", nodeDataFetcher())
