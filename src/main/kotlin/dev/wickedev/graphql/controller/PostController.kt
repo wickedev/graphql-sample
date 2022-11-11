@@ -11,6 +11,6 @@ class PostController {
 
     @SchemaMapping
     fun author(self: Post): User {
-        return User()
+        return self.author
     }
 }

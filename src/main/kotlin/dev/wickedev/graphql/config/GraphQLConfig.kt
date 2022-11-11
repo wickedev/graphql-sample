@@ -17,14 +17,14 @@ import org.springframework.graphql.data.query.QuerydslDataFetcher
 import org.springframework.graphql.execution.RuntimeWiringConfigurer
 
 
-// @Configuration
+@Configuration
 class GraphQLConfig(
-    val repositories: ObjectProvider<QuerydslPredicateExecutor<*>>
+    private val repositories: ObjectProvider<QuerydslPredicateExecutor<*>>
 ) : RuntimeWiringConfigurer {
 
-    val relay = Relay()
+    private val relay = Relay()
 
-    fun DataFetchingEnvironment.toGlobalId(): String {
+    private fun DataFetchingEnvironment.toGlobalId(): String {
         val id = getSource<Node>().id.toString()
         val parentType = this.parentType
         if (parentType is GraphQLNamedSchemaElement) {
@@ -34,7 +34,7 @@ class GraphQLConfig(
         return id
     }
 
-    fun nodeDataFetcher(): DataFetcher<*>? {
+    private fun nodeDataFetcher(): DataFetcher<*> {
         val dataFetchers = repositories.associate {
             val type = getDomainType(it).simpleName.lowercase()
             val df = QuerydslDataFetcher.builder(it).single()

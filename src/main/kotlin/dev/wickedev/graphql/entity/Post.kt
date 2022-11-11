@@ -9,13 +9,13 @@ data class Post(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     override val id: Long = 0,
-    val title: String = "",
-    val content: String = "",
-) :Node {
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "author_id")
-//    lateinit var author: User
-//        private set
+    val title: String,
+    val content: String,
+) : Node {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
+    lateinit var author: User
+        private set
 
     override fun hashCode(): Int {
         var result = id.hashCode()

@@ -11,12 +11,13 @@ data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     override val id: Long = 0,
-    val name: String = "",
+    val name: String,
     @Column(name = "phone_number")
-    val phoneNumber: String = "",
+    val phoneNumber: String,
 ) : Node {
-//    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-//    lateinit var posts: List<Post>
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    lateinit var posts: List<Post>
+        private set
 
     override fun hashCode(): Int {
         var result = id.hashCode()
