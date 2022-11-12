@@ -8,6 +8,6 @@ type Query {
     user(id: ID!): User
     post(id: ID!): User
 
-    userPages(after: String, first: Int = 10, orderBy: [UserSorting!]): UserConnection
-    postPages(after: String, first: Int = 10, orderBy: [PostSorting!]): PostConnection
+    userPages(after: String, first: Int = 10, orderBy: [UserOrderByInput!]): UserConnection
+    postPages(after: String, first: Int = 10, orderBy: [PostOrderByInput!]): PostConnection
 }

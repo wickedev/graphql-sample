@@ -1,6 +1,5 @@
 type Post implements Node {
     id: ID!
-    _id: ID!
     title: String!
     content: String!
     author: User
@@ -13,7 +12,7 @@ enum PostProperty {
     AUTHOR_ID
 }
 
-input PostSorting {
+input PostOrderByInput {
     property: PostProperty!
     direction: Direction!
 }

@@ -12,7 +12,7 @@ enum UserProperty {
     PHONE_NUMBER
 }
 
-input UserSorting {
+input UserOrderByInput {
     property: UserProperty!
     direction: Direction!
 }

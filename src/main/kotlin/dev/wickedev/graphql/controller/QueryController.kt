@@ -76,7 +76,13 @@ class QueryController(
 
             // filter 조건은 가장 우선 순위로 할것
             // orderBy는 들어온 순서대로 WHERE (0) < cursor AND WHERE (1) < cursor ...
-            // ORDER BY (0) DESC, (1) DESC, (2) DESC ...
+            // ORDER BY (0) DESC, (1) DESC, (2) DESC,
+            // - WHERE id < cursor 혹은 WHERE id > cursor
+            // - 그외 less(than equal), greater(than equal) 조건은 페이징에서 AND 조건으로 사용하지 말것 !!
+            //     - 모든 less, greater 조건을 AND 만족시키려면 있어야 할 다음 페이지가 없어짐
+            //     - 커서 기반 페이징에서는 커스텀 lt, lte, gt, gte 금지
+            // - ORDER BY id DESC 혹은 ORDER BY id ASC 무조건 들어가야함 !!
+
             return@findBy SimpleListConnection(it.page(pageable).toList(), "user:").get(env)
         }
     }
