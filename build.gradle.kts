@@ -40,6 +40,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("commons-codec:commons-codec:1.15")
+    implementation("com.google.guava:guava:31.1-jre")
+
 
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("org.bouncycastle:bcpkix-jdk18on:1.72")

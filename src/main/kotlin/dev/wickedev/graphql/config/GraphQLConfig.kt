@@ -26,18 +26,21 @@ class GraphQLConfig<T : Node>(
     private val relayBase32 = RelayBase32()
     val base32 = Base32()
 
-    private fun DataFetchingEnvironment.toGlobalId(): Any? {
+    private fun DataFetchingEnvironment.getId(): Any? {
         val source = getSource<Any>()
         if (source !is Node) {
             return source
         }
 
-        val id = source.id.toString()
+        return source.id.toString()
+    }
 
+    private fun DataFetchingEnvironment.toGlobalId(): Any? {
+        val id = getId()
         val parentType = this.parentType
         if (parentType is GraphQLNamedSchemaElement) {
             val type = parentType.name.lowercase()
-            return relayBase32.toGlobalId(type, id)
+            return relayBase32.toGlobalId(type, id.toString())
         }
         return id
     }
@@ -73,6 +76,9 @@ class GraphQLConfig<T : Node>(
             builder.type(type) { t ->
                 t.dataFetcher("id") { env ->
                     env.toGlobalId()
+                }
+                t.dataFetcher("_id") { env ->
+                    env.getId()
                 }
             }
         }
